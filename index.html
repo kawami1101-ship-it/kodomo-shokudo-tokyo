@@ -72,22 +72,6 @@
       transform: scale(0.95);
     }
 
-    /* 募集状況一覧 */
-    ul {
-      max-width: 600px;
-      margin: 0 auto 40px;
-      padding: 0;
-    }
-
-    ul li {
-      list-style: none;
-      background: white;
-      padding: 10px 14px;
-      border-radius: 8px;
-      margin-bottom: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-
     /* カード */
     .container {
       display: grid;
@@ -189,29 +173,51 @@
 <p style="text-align:center;">中高生向け｜学校発表用（実在団体・公式サイト確認済）</p>
 
 <div class="filter">
-  <button onclick="filterCards('all')"><i class="fa-solid fa-layer-group"></i> すべて</button>
-  <button onclick="filterCards('募集中')"><i class="fa-solid fa-circle-check"></i> 募集中</button>
-  <button onclick="filterCards('要確認')"><i class="fa-solid fa-circle-question"></i> 要確認</button>
+  <button onclick="filterCards('all')">
+    <i class="fa-solid fa-layer-group"></i> すべて
+  </button>
+  <button onclick="filterCards('募集中')">
+    <i class="fa-solid fa-circle-check"></i> 募集中
+  </button>
+  <button onclick="filterCards('要確認')">
+    <i class="fa-solid fa-circle-question"></i> 要確認
+  </button>
 </div>
 
 <div class="container">
   <div class="card" data-status="募集中">
-    <span class="tag official"><i class="fa-solid fa-utensils"></i> 実在団体（確認済）</span>
+    <span class="tag official">
+      <i class="fa-solid fa-utensils"></i> 実在団体（確認済）
+    </span>
     <h3>とよす子ども食堂</h3>
     <p><i class="fa-solid fa-location-dot"></i> 江東区豊洲</p>
-    <a href="https://www.city.koto.lg.jp/" target="_blank"><i class="fa-solid fa-globe"></i> 公式サイト</a><br>
-    <a href="https://maps.google.com/?q=豊洲" target="_blank"><i class="fa-solid fa-map-location-dot"></i> 地図を見る</a>
-    <p class="status recruit"><i class="fa-solid fa-circle-check"></i> 募集状況：募集中</p>
+    <a href="https://www.city.koto.lg.jp/" target="_blank">
+      <i class="fa-solid fa-globe"></i> 公式サイト
+    </a><br>
+    <a href="https://maps.google.com/?q=豊洲" target="_blank">
+      <i class="fa-solid fa-map-location-dot"></i> 地図を見る
+    </a>
+    <p class="status recruit">
+      <i class="fa-solid fa-circle-check"></i> 募集状況：募集中
+    </p>
     <p class="note">※公式情報をもとに作成（発表用）</p>
   </div>
 
   <div class="card" data-status="要確認">
-    <span class="tag official"><i class="fa-solid fa-utensils"></i> 実在団体（確認済）</span>
+    <span class="tag official">
+      <i class="fa-solid fa-utensils"></i> 実在団体（確認済）
+    </span>
     <h3>たつみ子ども食堂</h3>
     <p><i class="fa-solid fa-location-dot"></i> 江東区辰巳</p>
-    <a href="https://www.city.koto.lg.jp/" target="_blank"><i class="fa-solid fa-globe"></i> 公式サイト</a><br>
-    <a href="https://maps.google.com/?q=辰巳" target="_blank"><i class="fa-solid fa-map-location-dot"></i> 地図を見る</a>
-    <p class="status check"><i class="fa-solid fa-circle-question"></i> 募集状況：要確認</p>
+    <a href="https://www.city.koto.lg.jp/" target="_blank">
+      <i class="fa-solid fa-globe"></i> 公式サイト
+    </a><br>
+    <a href="https://maps.google.com/?q=辰巳" target="_blank">
+      <i class="fa-solid fa-map-location-dot"></i> 地図を見る
+    </a>
+    <p class="status check">
+      <i class="fa-solid fa-circle-question"></i> 募集状況：要確認
+    </p>
     <p class="note">※最新情報は公式サイト参照</p>
   </div>
 </div>
@@ -221,7 +227,7 @@ function filterCards(status) {
   const cards = document.querySelectorAll('.card');
   cards.forEach(card => {
     if (status === 'all' || card.dataset.status === status) {
-      card.style.display = 'block';
+      card.style.display = '';
     } else {
       card.style.display = 'none';
     }
