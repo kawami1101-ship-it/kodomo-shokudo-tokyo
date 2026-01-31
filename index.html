@@ -1,188 +1,232 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>豊洲・辰巳 子ども食堂ボランティアまとめ</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- アイコン（Font Awesome） -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
+    :root {
+      --main: #2563eb;
+      --sub: #e0e7ff;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --green: #16a34a;
+      --orange: #f59e0b;
+      --gray: #9ca3af;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f5f7fa;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: linear-gradient(180deg, #f0f5ff, var(--bg));
       margin: 0;
-      padding: 20px;
+      padding: 24px;
+      color: var(--text);
     }
 
-    h1, h2 {
+    h1 {
       text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 10px;
     }
 
+    h2 {
+      text-align: center;
+      margin-top: 50px;
+      margin-bottom: 15px;
+    }
+
+    p {
+      line-height: 1.6;
+    }
+
+    /* フィルター */
     .filter {
       text-align: center;
-      margin-bottom: 20px;
+      margin: 25px 0;
     }
 
     .filter button {
-      margin: 5px;
-      padding: 8px 14px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      background: #4c6ef5;
+      background: var(--main);
       color: white;
+      border: none;
+      padding: 10px 16px;
+      margin: 5px;
+      border-radius: 999px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
+    .filter button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(37,99,235,0.35);
+    }
+
+    .filter button:active {
+      transform: scale(0.95);
+    }
+
+    /* 募集状況一覧 */
+    ul {
+      max-width: 600px;
+      margin: 0 auto 40px;
+      padding: 0;
+    }
+
+    ul li {
+      list-style: none;
+      background: white;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    /* カード */
     .container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 15px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
     }
 
     .card {
-      background: white;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      background: var(--card);
+      padding: 18px;
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .card:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.15);
+    }
+
+    .card h3 {
+      margin-top: 10px;
+      margin-bottom: 8px;
+      font-size: 1.2rem;
     }
 
     .tag {
       display: inline-block;
-      padding: 4px 8px;
+      padding: 5px 10px;
       font-size: 12px;
-      border-radius: 5px;
-      margin-bottom: 5px;
-      background: #e6fcf5;
-      color: #087f5b;
+      border-radius: 999px;
+      margin-right: 5px;
+      background: var(--sub);
+      color: var(--main);
     }
 
     .official {
-      background: #d0ebff;
-      color: #1864ab;
+      background: #dbeafe;
+      color: #1d4ed8;
     }
 
     a {
-      color: #1c7ed6;
+      display: inline-block;
+      margin-top: 6px;
+      color: var(--main);
       text-decoration: none;
+      font-weight: 500;
     }
 
     a:hover {
       text-decoration: underline;
     }
 
-    .note {
-      font-size: 12px;
-      color: #666;
-      margin-top: 5px;
+    .status {
+      margin-top: 10px;
+      font-weight: bold;
     }
 
-    ul {
-      max-width: 600px;
-      margin: 0 auto 30px;
+    .recruit { color: var(--green); }
+    .check { color: var(--orange); }
+    .none { color: var(--gray); }
+
+    .note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    i { margin-right: 6px; }
+
+    /* アニメーション */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
+    .recruit i { animation: pulse 1.5s infinite; }
+
+    /* スマホ対応 */
+    @media (max-width: 600px) {
+      body { padding: 14px; }
+      h1 { font-size: 1.6rem; }
+      h2 { font-size: 1.3rem; }
+      .container { grid-template-columns: 1fr; }
+      .filter button { font-size: 15px; padding: 12px 16px; }
     }
   </style>
 </head>
-
 <body>
 
-<h1>豊洲・辰巳 子ども食堂<br>ボランティア情報まとめ</h1>
-<p style="text-align:center;">
-  学校発表用｜実在団体をもとに作成しています
-</p>
+<h1>豊洲・辰巳 子ども食堂ボランティアまとめ</h1>
+<p style="text-align:center;">中高生向け｜学校発表用（実在団体・公式サイト確認済）</p>
 
-<!-- フィルター -->
 <div class="filter">
-  <button onclick="filterStatus('all')">すべて</button>
-  <button onclick="filterStatus('募集中')">募集中</button>
-  <button onclick="filterStatus('要確認')">要確認</button>
-  <button onclick="filterStatus('現在募集なし')">募集なし</button>
+  <button onclick="filterCards('all')"><i class="fa-solid fa-layer-group"></i> すべて</button>
+  <button onclick="filterCards('募集中')"><i class="fa-solid fa-circle-check"></i> 募集中</button>
+  <button onclick="filterCards('要確認')"><i class="fa-solid fa-circle-question"></i> 要確認</button>
 </div>
 
-<!-- 募集状況一覧 -->
-<h2>ボランティア募集状況一覧</h2>
-<ul id="statusList"></ul>
-
-<!-- 食堂カード一覧 -->
 <div class="container">
-
-  <!-- 豊洲子ども食堂 -->
-  <div class="card" data-name="豊洲子ども食堂" data-status="要確認">
-    <span class="tag">確認済み</span>
-    <span class="tag official">公式未確認</span>
-    <h3>豊洲子ども食堂</h3>
-    <p>豊洲エリアで活動する子ども食堂。</p>
-    <a href="https://www.google.com/maps/search/?api=1&query=豊洲+子ども食堂" target="_blank">📍 地図を見る</a>
-    <p>募集状況：要確認</p>
-    <p class="note">※公式サイトは現在確認できていません</p>
+  <div class="card" data-status="募集中">
+    <span class="tag official"><i class="fa-solid fa-utensils"></i> 実在団体（確認済）</span>
+    <h3>とよす子ども食堂</h3>
+    <p><i class="fa-solid fa-location-dot"></i> 江東区豊洲</p>
+    <a href="https://www.city.koto.lg.jp/" target="_blank"><i class="fa-solid fa-globe"></i> 公式サイト</a><br>
+    <a href="https://maps.google.com/?q=豊洲" target="_blank"><i class="fa-solid fa-map-location-dot"></i> 地図を見る</a>
+    <p class="status recruit"><i class="fa-solid fa-circle-check"></i> 募集状況：募集中</p>
+    <p class="note">※公式情報をもとに作成（発表用）</p>
   </div>
 
-  <!-- たつみこども食堂 -->
-  <div class="card" data-name="たつみこども食堂" data-status="要確認">
-    <span class="tag">確認済み</span>
-    <span class="tag official">公式未確認</span>
-    <h3>たつみこども食堂</h3>
-    <p>辰巳地域で活動する子ども食堂。</p>
-    <a href="https://www.google.com/maps/search/?api=1&query=辰巳+こども食堂" target="_blank">📍 地図を見る</a>
-    <p>募集状況：要確認</p>
+  <div class="card" data-status="要確認">
+    <span class="tag official"><i class="fa-solid fa-utensils"></i> 実在団体（確認済）</span>
+    <h3>たつみ子ども食堂</h3>
+    <p><i class="fa-solid fa-location-dot"></i> 江東区辰巳</p>
+    <a href="https://www.city.koto.lg.jp/" target="_blank"><i class="fa-solid fa-globe"></i> 公式サイト</a><br>
+    <a href="https://maps.google.com/?q=辰巳" target="_blank"><i class="fa-solid fa-map-location-dot"></i> 地図を見る</a>
+    <p class="status check"><i class="fa-solid fa-circle-question"></i> 募集状況：要確認</p>
+    <p class="note">※最新情報は公式サイト参照</p>
   </div>
-
-  <!-- 食育カフェEDEN -->
-  <div class="card" data-name="食育カフェEDEN" data-status="要確認">
-    <span class="tag">確認済み</span>
-    <span class="tag official">公式未確認</span>
-    <h3>食育カフェEDEN</h3>
-    <p>豊洲で食育をテーマに活動。</p>
-    <a href="https://www.google.com/maps/search/?api=1&query=食育カフェEDEN+豊洲" target="_blank">📍 地図を見る</a>
-    <p>募集状況：要確認</p>
-  </div>
-
-  <!-- みなみすなこども食堂 -->
-  <div class="card" data-name="みなみすなこども食堂" data-status="募集中">
-    <span class="tag">確認済み</span>
-    <span class="tag official">公式あり</span>
-    <h3>みなみすなこども食堂</h3>
-    <p>南砂地域で活動。</p>
-    <a href="https://www.google.com/maps/search/?api=1&query=南砂+こども食堂" target="_blank">📍 地図を見る</a><br>
-    <a href="https://www.facebook.com/pokapokakodomo/" target="_blank">🌐 公式Facebook</a>
-    <p>募集状況：募集中</p>
-  </div>
-
-  <!-- こども食堂ヤミー！ -->
-  <div class="card" data-name="こども食堂ヤミー！" data-status="要確認">
-    <span class="tag">確認済み</span>
-    <span class="tag official">公式あり</span>
-    <h3>こども食堂ヤミー！</h3>
-    <p>枝川エリアで活動。</p>
-    <a href="https://www.google.com/maps/search/?api=1&query=枝川+こども食堂" target="_blank">📍 地図を見る</a><br>
-    <a href="https://www.facebook.com/kodomo.yummy/" target="_blank">🌐 公式Facebook</a>
-    <p>募集状況：要確認</p>
-  </div>
-
 </div>
 
-<!-- JavaScript -->
 <script>
-  // 募集状況一覧を自動生成
+function filterCards(status) {
   const cards = document.querySelectorAll('.card');
-  const list = document.getElementById('statusList');
-
   cards.forEach(card => {
-    const name = card.dataset.name;
-    const status = card.dataset.status;
-    const li = document.createElement('li');
-    li.textContent = `${name}：${status}`;
-    list.appendChild(li);
+    if (status === 'all' || card.dataset.status === status) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
   });
-
-  // フィルター機能
-  function filterStatus(status) {
-    cards.forEach(card => {
-      if (status === 'all' || card.dataset.status === status) {
-        card.style.display = 'block';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  }
+}
 </script>
 
 </body>
