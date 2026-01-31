@@ -1,239 +1,171 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>豊洲・辰巳 子ども食堂ボランティアまとめ</title>
-
-  <!-- アイコン（Font Awesome） -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-  <style>
-    :root {
-      --main: #2563eb;
-      --sub: #e0e7ff;
-      --bg: #f8fafc;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --green: #16a34a;
-      --orange: #f59e0b;
-      --gray: #9ca3af;
-    }
-
-    body {
-      font-family: "Segoe UI", system-ui, sans-serif;
-      background: linear-gradient(180deg, #f0f5ff, var(--bg));
-      margin: 0;
-      padding: 24px;
-      color: var(--text);
-    }
-
-    h1 {
-      text-align: center;
-      font-size: 2.2rem;
-      margin-bottom: 10px;
-    }
-
-    h2 {
-      text-align: center;
-      margin-top: 50px;
-      margin-bottom: 15px;
-    }
-
-    p {
-      line-height: 1.6;
-    }
-
-    /* フィルター */
-    .filter {
-      text-align: center;
-      margin: 25px 0;
-    }
-
-    .filter button {
-      background: var(--main);
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      margin: 5px;
-      border-radius: 999px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .filter button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(37,99,235,0.35);
-    }
-
-    .filter button:active {
-      transform: scale(0.95);
-    }
-
-    /* カード */
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: var(--card);
-      padding: 18px;
-      border-radius: 18px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      animation: fadeUp 0.6s ease both;
-    }
-
-    .card:hover {
-      transform: translateY(-8px) scale(1.01);
-      box-shadow: 0 18px 40px rgba(0,0,0,0.15);
-    }
-
-    .card h3 {
-      margin-top: 10px;
-      margin-bottom: 8px;
-      font-size: 1.2rem;
-    }
-
-    .tag {
-      display: inline-block;
-      padding: 5px 10px;
-      font-size: 12px;
-      border-radius: 999px;
-      margin-right: 5px;
-      background: var(--sub);
-      color: var(--main);
-    }
-
-    .official {
-      background: #dbeafe;
-      color: #1d4ed8;
-    }
-
-    a {
-      display: inline-block;
-      margin-top: 6px;
-      color: var(--main);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .status {
-      margin-top: 10px;
-      font-weight: bold;
-    }
-
-    .recruit { color: var(--green); }
-    .check { color: var(--orange); }
-    .none { color: var(--gray); }
-
-    .note {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 6px;
-    }
-
-    i { margin-right: 6px; }
-
-    /* アニメーション */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.15); }
-      100% { transform: scale(1); }
-    }
-
-    .recruit i { animation: pulse 1.5s infinite; }
-
-    /* スマホ対応 */
-    @media (max-width: 600px) {
-      body { padding: 14px; }
-      h1 { font-size: 1.6rem; }
-      h2 { font-size: 1.3rem; }
-      .container { grid-template-columns: 1fr; }
-      .filter button { font-size: 15px; padding: 12px 16px; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WANGAN Action | 未来を彩るボランティア</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <style>
+        :root {
+            --glass: rgba(255, 255, 255, 0.7);
+            --accent: #3b82f6;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; background-color: #ffffff; color: #1d1d1f; }
+        .font-outfit { font-family: 'Outfit', sans-serif; }
+        
+        /* スムースなアニメーション */
+        .card-hover { transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .card-hover:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 30px 60px -12px rgba(50,50,93,0.15); }
+        
+        /* ヒーロー背景（動的なグラデーション） */
+        .hero-bg {
+            background: radial-gradient(circle at 0% 0%, #f0f9ff 0%, transparent 40%),
+                        radial-gradient(circle at 100% 100%, #f0fdf4 0%, transparent 40%);
+        }
+        
+        /* スクロールバーのカスタマイズ */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #d1d1d1; border-radius: 10px; }
+        
+        .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: saturate(180%) blur(20px); }
+    </style>
 </head>
-<body>
+<body class="antialiased overflow-x-hidden">
 
-<h1>豊洲・辰巳 子ども食堂ボランティアまとめ</h1>
-<p style="text-align:center;">中高生向け｜学校発表用（実在団体・公式サイト確認済）</p>
+    <!-- Navbar -->
+    <nav class="glass-nav fixed w-full top-0 z-50 border-b border-gray-100/50">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
+            <div class="text-xl font-outfit font-extrabold tracking-tighter text-blue-600">WANGAN<span class="text-slate-400">ACTION</span></div>
+            <div id="sync-status" class="flex items-center gap-2 text-[10px] font-bold text-slate-400 tracking-widest uppercase">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                </span>
+                Live Connected
+            </div>
+        </div>
+    </nav>
 
-<div class="filter">
-  <button onclick="filterCards('all')">
-    <i class="fa-solid fa-layer-group"></i> すべて
-  </button>
-  <button onclick="filterCards('募集中')">
-    <i class="fa-solid fa-circle-check"></i> 募集中
-  </button>
-  <button onclick="filterCards('要確認')">
-    <i class="fa-solid fa-circle-question"></i> 要確認
-  </button>
-</div>
+    <!-- Hero -->
+    <section class="hero-bg pt-40 pb-24 px-6">
+        <div class="max-w-5xl mx-auto text-center">
+            <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-[1.1]">
+                放課後のキミが、<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-500">誰かの景色を変える。</span>
+            </h1>
+            <p class="text-gray-500 text-lg md:text-xl font-light max-w-2xl mx-auto mb-12">
+                豊洲・勝どき・月島。湾岸エリアに根ざした、中高生のための「子ども食堂」ボランティアポータル。
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="#search" class="bg-blue-600 text-white px-8 py-4 rounded-full font-bold text-sm hover:bg-black transition-colors duration-500 shadow-xl shadow-blue-200">募集を探す</a>
+            </div>
+        </div>
+    </section>
 
-<div class="container">
-  <div class="card" data-status="募集中">
-    <span class="tag official">
-      <i class="fa-solid fa-utensils"></i> 実在団体（確認済）
-    </span>
-    <h3>とよす子ども食堂</h3>
-    <p><i class="fa-solid fa-location-dot"></i> 江東区豊洲</p>
-    <a href="https://www.city.koto.lg.jp/" target="_blank">
-      <i class="fa-solid fa-globe"></i> 公式サイト
-    </a><br>
-    <a href="https://maps.google.com/?q=豊洲" target="_blank">
-      <i class="fa-solid fa-map-location-dot"></i> 地図を見る
-    </a>
-    <p class="status recruit">
-      <i class="fa-solid fa-circle-check"></i> 募集状況：募集中
-    </p>
-    <p class="note">※公式情報をもとに作成（発表用）</p>
-  </div>
+    <!-- Filters -->
+    <section id="search" class="max-w-7xl mx-auto px-6 py-12">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+            <div>
+                <h2 class="text-3xl font-bold mb-2">Explore Activities</h2>
+                <p class="text-slate-400 font-light italic text-sm">リアルタイムで募集状況を同期しています</p>
+            </div>
+            <div class="flex bg-gray-100 p-1 rounded-full w-fit">
+                <button onclick="filterCards('all')" class="filter-btn active bg-white text-black px-6 py-2 rounded-full text-xs font-bold shadow-sm transition-all">すべて</button>
+                <button onclick="filterCards('江東区')" class="filter-btn text-gray-500 px-6 py-2 rounded-full text-xs font-bold transition-all">江東区</button>
+                <button onclick="filterCards('中央区')" class="filter-btn text-gray-500 px-6 py-2 rounded-full text-xs font-bold transition-all">中央区</button>
+            </div>
+        </div>
 
-  <div class="card" data-status="要確認">
-    <span class="tag official">
-      <i class="fa-solid fa-utensils"></i> 実在団体（確認済）
-    </span>
-    <h3>たつみ子ども食堂</h3>
-    <p><i class="fa-solid fa-location-dot"></i> 江東区辰巳</p>
-    <a href="https://www.city.koto.lg.jp/" target="_blank">
-      <i class="fa-solid fa-globe"></i> 公式サイト
-    </a><br>
-    <a href="https://maps.google.com/?q=辰巳" target="_blank">
-      <i class="fa-solid fa-map-location-dot"></i> 地図を見る
-    </a>
-    <p class="status check">
-      <i class="fa-solid fa-circle-question"></i> 募集状況：要確認
-    </p>
-    <p class="note">※最新情報は公式サイト参照</p>
-  </div>
-</div>
+        <!-- Grid -->
+        <div id="volunteer-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <!-- Cards generated by JS -->
+        </div>
+    </section>
 
-<script>
-function filterCards(status) {
-  const cards = document.querySelectorAll('.card');
-  cards.forEach(card => {
-    if (status === 'all' || card.dataset.status === status) {
-      card.style.display = '';
-    } else {
-      card.style.display = 'none';
-    }
-  });
-}
-</script>
+    <footer class="py-20 text-center border-t border-gray-100">
+        <p class="text-xs font-bold tracking-widest text-slate-300 uppercase italic mb-4">&copy; 2026 Wangan Action Hub</p>
+        <div class="flex justify-center gap-6">
+            <a href="https://docs.google.com" target="_blank" class="text-[10px] text-blue-400 hover:underline italic font-bold">Manage Data (Admin)</a>
+        </div>
+    </footer>
 
+    <script>
+        const SHEET_CSV_URL = "https://docs.google.com";
+
+        const volunteers = [
+            { id: 1, name: "子ども食堂 りとるふぉれすと", area: "江東区", station: "有明・東雲", desc: "中高生が主体で運営。同世代と活動したい人に最適！" },
+            { id: 2, name: "豊洲こども食堂", area: "江東区", station: "豊洲", desc: "地域密着。調理補助や子どもたちの遊び相手を募集。" },
+            { id: 3, name: "勝どき・月島 枝豆プロジェクト", area: "中央区", station: "勝どき・月島", desc: "食育や農業体験を軸にしたクリエイティブな活動。" },
+            { id: 4, name: "みんつく東雲（フローレンス）", area: "江東区", station: "東雲", desc: "保育園で開催。小さなお子さんと接するのが好きな人向け。" },
+            { id: 5, name: "たつみこども食堂", area: "江東区", station: "辰巳", desc: "辰巳団地周辺。多世代交流が魅力のアットホームな拠点。" },
+            { id: 6, name: "築地こども食堂（長生庵）", area: "中央区", station: "築地", desc: "築地場外の老舗が協力。本格的な「食」の支援を体験。" }
+        ];
+
+        function renderInitialCards() {
+            const grid = document.getElementById('volunteer-grid');
+            grid.innerHTML = volunteers.map(v => `
+                <div class="volunteer-card card-hover bg-white rounded-[2.5rem] border border-gray-100 overflow-hidden flex flex-col" data-name="${v.name}" data-area="${v.area}">
+                    <div class="p-10 flex-grow flex flex-col">
+                        <div class="flex justify-between items-center mb-8">
+                            <span class="status-badge px-4 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase bg-gray-50 text-slate-300 transition-all duration-500">Syncing...</span>
+                            <span class="text-[10px] font-bold text-blue-500 uppercase tracking-widest">${v.station}</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 leading-tight">${v.name}</h3>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-8 flex-grow">${v.desc}</p>
+                        <a href="#" target="_blank" class="action-btn w-full py-5 rounded-3xl text-sm font-bold text-center transition-all duration-500 bg-gray-50 text-slate-300 pointer-events-none">
+                            Loading Status
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function syncWithSheet() {
+            try {
+                const response = await fetch(SHEET_CSV_URL + "&cb=" + Date.now());
+                const csvData = await response.text();
+                const rows = csvData.split('\n').slice(1);
+
+                rows.forEach(row => {
+                    const [name, status, link] = row.split(',').map(s => s?.trim());
+                    const card = document.querySelector(`[data-name="${name}"]`);
+                    if (card) {
+                        const badge = card.querySelector('.status-badge');
+                        const btn = card.querySelector('.action-btn');
+
+                        if (status === "募集中") {
+                            badge.innerText = "募集中";
+                            badge.className = "status-badge px-4 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase bg-blue-50 text-blue-600";
+                            btn.innerText = "Apply Now";
+                            btn.className = "action-btn w-full py-5 rounded-3xl text-sm font-bold text-center bg-black text-white hover:bg-blue-600 transition-all shadow-xl shadow-gray-200";
+                            btn.href = link || "#";
+                            btn.style.pointerEvents = "auto";
+                        } else if (status === "満員") {
+                            badge.innerText = "Full";
+                            badge.className = "status-badge px-4 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase bg-gray-100 text-gray-400";
+                            btn.innerText = "Coming Soon";
+                            btn.className = "action-btn w-full py-5 rounded-3xl text-sm font-bold text-center bg-gray-50 text-gray-300 pointer-events-none";
+                        }
+                    }
+                });
+            } catch (err) { console.error("Update failed."); }
+        }
+
+        function filterCards(area) {
+            document.querySelectorAll('.volunteer-card').forEach(card => {
+                card.style.display = (area === 'all' || card.dataset.area === area) ? 'block' : 'none';
+            });
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.className = "filter-btn text-gray-500 px-6 py-2 rounded-full text-xs font-bold transition-all";
+            });
+            event.target.className = "filter-btn active bg-white text-black px-6 py-2 rounded-full text-xs font-bold shadow-sm transition-all";
+        }
+
+        renderInitialCards();
+        syncWithSheet();
+        setInterval(syncWithSheet, 30000);
+    </script>
 </body>
 </html>
